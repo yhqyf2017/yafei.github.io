@@ -1,7 +1,7 @@
 ---
 title: jenkins自动化部署vue项目（一）
 date: 2020-12-09 09:41:19
-tags: jenkins,vue
+tags: jenkins
 categories: 运维
 keywords: jenkins
 cover: false
