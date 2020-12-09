@@ -1,7 +1,7 @@
 ---
 title: jenkins自动化部署vue项目（二）
 date: 2020-12-09 10:20:11
-tags:jenkins  vue
+tags:jenkins,vue
 ---
 
 ##  安装插件Publish Over SSH
