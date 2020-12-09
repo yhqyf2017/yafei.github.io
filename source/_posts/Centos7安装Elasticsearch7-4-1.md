@@ -2,21 +2,24 @@
 title: Centos7安装Elasticsearch7.4.1
 date: 2020-12-09 10:38:32
 tags: Elasticsearch
+categories: 数据库
+keywords: Elasticsearch
+cover: false
 ---
 
  ## 下载安装
     从[官网](https://www.elastic.co/cn/downloads/elasticsearch)下载Elasticsearch 7.4.1,linux版本的。
  ## 解压
-```
+```bash
   tar xf elasticsearch-7.4.1
 ```
 ## 运行
-```
+```bash
   sh elasticsearch-7.4.1/bin/elasticsearch
 ```
 直至出现如下情况方为正常的：
 
-```
+```json
   {
   "name" : "node-1",
   "cluster_name" : "elasticsearch",
@@ -53,47 +56,47 @@ tags: Elasticsearch
 
     elasticsearch-7.x版本内置jdk的版本。
     编辑以下命令：
-```
+```bash
    vi /usr/local/elk/elasticsearch-7.4.1/bin/elasticsearch-env
 ```
   在图示部分加入jdk的路径即可。如图所示：
 
 ![小Q截图-20191029173631.png](https://uufefile.uupt.com/PicLib/uunote/images/%E5%B0%8FQ%E6%88%AA%E5%9B%BE-20191029173631_1572341813914.png)
 
-```
+```bash
   export JAVA_HOME=/usr/local/elk/elasticsearch-7.4.1/jdk
 ```
 
 ### 2、can  not  run  elasticsearch  as  root
 出现如下错误：
-```
+```java
   org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can  not  run  elasticsearch  as  root
 ```
 
 该问题是因为运行es不能使用root用户，因此要新建用户es。
-```
+```bash
   useradd es
 ```
-```
+```bash
   passwd es
 ```
 修改文件所属为es
-```
+```bash
   chown -R es:es /usr/local/elk/elasticsearch-7.4.1
 ```
 之后切换es用户：
-```
+```bash
   su es
 ```
 再次执行即可。
 
 ### 3、 max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]
   解决：
-```
+```bash
   vim /etc/security/limits.conf
 ```
   在最后面追加下面内容
-```
+```bash
   es hard nofile 65536
   es soft nofile 65536
 ```
@@ -103,26 +106,26 @@ tags: Elasticsearch
 
   解决： 
     切换到root用户
-```
+```bash
   vi /etc/sysctl.conf 
 ```
 添加 
-```
+```bash
   vm.max_map_count=655360
 ```
 执行命令： 
-```
+```bash
   sysctl -p
 ```
 即可解决。
 
 ### 5、max number of threads [3828] for user [es] is too low, increase to at least [4096]
  解决：(和3修改的同一个文件)
-```
+```bash
   vim /etc/security/limits.conf
 ```
   在最后面追加下面内容
-```
+```bash
   es soft nproc  4096
   es hard nproc  4096
 ```
@@ -134,11 +137,11 @@ tags: Elasticsearch
 ### 6、外网无法访问
   以上错误都修改完成之后，外网无法访问。
   执行
-```
+```bash
   curl 192.168.6.88:9200
 ```
 返回结果:
-```
+```json
   {
   "name" : "node-1",
   "cluster_name" : "elasticsearch",
@@ -162,11 +165,11 @@ tags: Elasticsearch
 解决：
 
 编辑 ``` elasticsearch.yml ``` 文件
-```
+```yaml
   node.name: node-1
 ```
 前面的#打开
-```
+```properties
 #network.host: 192.168.0.1
 network.host: 192.168.6.88
 #network.host: 127.0.0.1  这里把network.host 设置为自己的ip地址 网上有设置成0.0.0.0的应该也可以自己设置一下试试
@@ -180,7 +183,7 @@ http.cors.allow-origin: "*"
 
 
 备注：elasticsearch.yml配置文件
-```
+```yaml
   # ======================== Elasticsearch Configuration =========================
 #
 # NOTE: Elasticsearch comes with reasonable defaults for most settings.

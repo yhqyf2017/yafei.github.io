@@ -2,6 +2,9 @@
 title: Java高效率代码
 date: 2020-12-08 20:45:15
 tags: Java
+categories: Java
+keywords: Java
+cover: false
 ---
 
 ### 1.常量&变量
