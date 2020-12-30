@@ -1,7 +1,14 @@
 ---
 title: Android11刷面具教程
 date: 2020-12-29 15:33:58
-tags: 面具Rec  Android11
+tags: 
+- 面具Rec 
+- Android11
+keywords: 
+- 面具
+categories: 
+- Android
+cover: false
 ---
 
 ### Android 11刷面具教程
@@ -26,7 +33,7 @@ fastboot flash recovery twrp-3.4.0-10-raphael-mauronofrio.img
 
 3、刷完以后不要重启，不要重启，不要重启，返回主界面。
 
-4、把防止解密的包拷贝到sdcard中，通过手机端刷入防止解密的包。
+4、把防止加密的包拷贝到sdcard中，通过手机端刷入防止加密的包。
 
 ```sh
 Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip
