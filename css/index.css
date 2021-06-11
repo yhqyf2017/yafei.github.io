@@ -2830,8 +2830,8 @@ blockquote footer cite:before {
   transition: all 0.2s ease-in-out;
 }
 #aside_content #card-toc .toc-content .toc-link.active {
-  border-left-color: #009d92;
-  background: #00c4b6;
+  border-left-color: #bd77bd;
+  background: #cfa6cf;
   color: #fff;
 }
 #aside_content #card-toc .toc-content:before {
