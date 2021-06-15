@@ -1,5 +1,5 @@
 ---
-title: 炎黄BPm学习(一)
+title: 炎黄BPM学习(一)
 date: 2021-06-10 17:03:15
 tags:
 - 炎黄BPM
