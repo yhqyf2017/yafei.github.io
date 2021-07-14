@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>异步数据同步工具-FlinkX | 锦瑟流年</title><meta name="keywords" content="FlinkX,数据同步"><meta name="author" content="流年"><meta name="copyright" content="流年"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="介绍FlinkX是一个基于Flink的批流统一的数据同步工具，既可以采集静态的数据，比如MySQL，HDFS等，也可以采集实时变化的数据，比如MySQL binlog，Kafka等。FlinkX目前包含下面这些特性：  大部分插件支持并发读写数据，可以大幅度提高读写速度； 部分插件支持失败恢复的功能，可以从失败的位置恢复任务，节约运行时间；失败恢复 关系数据库的Reader插件支持间隔轮询功能，可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异步数据同步工具-FlinkX">
+<meta property="og:url" content="http://www.yafeiz.com/2021/07/14/%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7-FlinkX/index.html">
+<meta property="og:site_name" content="锦瑟流年">
+<meta property="og:description" content="介绍FlinkX是一个基于Flink的批流统一的数据同步工具，既可以采集静态的数据，比如MySQL，HDFS等，也可以采集实时变化的数据，比如MySQL binlog，Kafka等。FlinkX目前包含下面这些特性：  大部分插件支持并发读写数据，可以大幅度提高读写速度； 部分插件支持失败恢复的功能，可以从失败的位置恢复任务，节约运行时间；失败恢复 关系数据库的Reader插件支持间隔轮询功能，可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.yafeiz.com/null">
+<meta property="article:published_time" content="2021-07-14T11:27:16.000Z">
+<meta property="article:modified_time" content="2021-07-14T11:29:50.776Z">
+<meta property="article:author" content="流年">
+<meta property="article:tag" content="FlinkX">
+<meta property="article:tag" content="数据同步">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.yafeiz.com/null"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.yafeiz.com/2021/07/14/%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7-FlinkX/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="CMxvMS0ZaW8zrbI2J4cvLA_L25VR_C5D7QptYsiZgDM"/><meta name="msvalidate.01" content="FBBBB6F1B87A1658DE454375FA55E484"/><meta name="baidu-site-verification" content="code-5pNSXdnIWU"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4c15d038e8a16434aa82646f62061b34";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-14 19:29:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'true'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/index.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">锦瑟流年</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">异步数据同步工具-FlinkX</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-07-14T11:27:16.000Z" title="发表于 2021-07-14 19:27:16">2021-07-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-14T11:29:50.776Z" title="更新于 2021-07-14 19:29:50">2021-07-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>FlinkX是一个基于Flink的批流统一的数据同步工具，既可以采集静态的数据，比如MySQL，HDFS等，也可以采集实时变化的数据，比如MySQL binlog，Kafka等。FlinkX目前包含下面这些特性：</p>
+<ul>
+<li>大部分插件支持并发读写数据，可以大幅度提高读写速度；</li>
+<li>部分插件支持失败恢复的功能，可以从失败的位置恢复任务，节约运行时间；<a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/restore.md">失败恢复</a></li>
+<li>关系数据库的Reader插件支持间隔轮询功能，可以持续不断的采集变化的数据；<a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">间隔轮询</a></li>
+<li>部分数据库支持开启Kerberos安全认证；<a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/kerberos.md">Kerberos</a></li>
+<li>可以限制reader的读取速度，降低对业务数据库的影响；</li>
+<li>可以记录writer插件写数据时产生的脏数据；</li>
+<li>可以限制脏数据的最大数量；</li>
+<li>支持多种运行模式；</li>
+</ul>
+<p>FlinkX目前支持下面这些数据库：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Database Type</th>
+<th>Reader</th>
+<th>Writer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Batch Synchronization</td>
+<td>MySQL</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>Oracle</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>SqlServer</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>PostgreSQL</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>DB2</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>GBase</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>ClickHouse</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>PolarDB</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>SAP Hana</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>Teradata</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>Phoenix</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>达梦</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rdbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>Cassandra</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/cassandrareader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/cassandrawriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>ODPS</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/odpsreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/odpswriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>HBase</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/hbasereader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/hbasewriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>MongoDB</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/mongodbreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/mongodbwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>Kudu</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/kudureader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/kuduwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>ElasticSearch</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/esreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/eswriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>FTP</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/ftpreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/ftpwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>HDFS</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/hdfsreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/hdfswriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>Carbondata</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/carbondatareader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/carbondatawriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>Redis</td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/rediswriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>Hive</td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/hivewriter.md">doc</a></td>
+</tr>
+<tr>
+<td>Stream Synchronization</td>
+<td>Kafka</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/kafkareader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/kafkawriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>EMQX</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/emqxreader.md">doc</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/emqxwriter.md">doc</a></td>
+</tr>
+<tr>
+<td></td>
+<td>MySQL Binlog</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/binlog.md">doc</a></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>MongoDB Oplog</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/mongodb_oplog.md">doc</a></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>PostgreSQL WAL</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/oceanos/flinkx/blob/1.8_release/docs/pgwalreader.md">doc</a></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>详细见：</p>
+<p>​    <a target="_blank" rel="noopener" href="https://github.com/DTStack/flinkx">https://github.com/DTStack/flinkx</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">流年</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.yafeiz.com/2021/07/14/%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7-FlinkX/">http://www.yafeiz.com/2021/07/14/%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7-FlinkX/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.yafeiz.com" target="_blank">锦瑟流年</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/FlinkX/">FlinkX</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/">数据同步</a></div><div class="post_share"><div class="social-share" data-image="/null" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/06/24/%E7%BB%8F%E5%85%B8%E8%AF%AD%E5%BD%95-%E4%BA%8C/"><img class="next-cover" src="/img/index.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">经典语录(二)</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">流年</div><div class="author-info__description">锦瑟流年</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn"><i></i><span></span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="/1361220256@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/07/14/%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7-FlinkX/" title="异步数据同步工具-FlinkX">异步数据同步工具-FlinkX</a><time datetime="2021-07-14T11:27:16.000Z" title="发表于 2021-07-14 19:27:16">2021-07-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/06/24/%E7%BB%8F%E5%85%B8%E8%AF%AD%E5%BD%95-%E4%BA%8C/" title="经典语录(二)">经典语录(二)</a><time datetime="2021-06-24T07:13:52.000Z" title="发表于 2021-06-24 15:13:52">2021-06-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/06/17/%E7%82%8E%E9%BB%84BPM%E5%AD%A6%E4%B9%A0-%E4%B8%89-AT%E5%BC%80%E5%8F%91/" title="炎黄BPM学习(三)-AT开发">炎黄BPM学习(三)-AT开发</a><time datetime="2021-06-17T02:55:27.000Z" title="发表于 2021-06-17 10:55:27">2021-06-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/06/11/%E7%82%8E%E9%BB%84BPm%E5%AD%A6%E4%B9%A0-%E4%BA%8C/" title="炎黄BPM学习(二)">炎黄BPM学习(二)</a><time datetime="2021-06-11T01:17:45.000Z" title="发表于 2021-06-11 09:17:45">2021-06-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/06/10/%E7%82%8E%E9%BB%84BPm%E5%AD%A6%E4%B9%A0-%E4%B8%80/" title="炎黄BPM学习(一)">炎黄BPM学习(一)</a><time datetime="2021-06-10T09:03:15.000Z" title="发表于 2021-06-10 17:03:15">2021-06-10</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/index.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 流年</div><div class="icp"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery"><img class="icp-icon" src="/img/icp.png" alt="ICP"/><span>豫ICP备20002785号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script></div></body></html>
