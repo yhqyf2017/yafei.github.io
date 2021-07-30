@@ -389,6 +389,31 @@
     </entry>
     
     
+    
+    <entry>
+      <title>由Detected problems with API compatibility引发的一系列问题</title>
+      <link href="/2018/12/06/%E7%94%B1Detected-problems-with-API-compatibility%E5%BC%95%E5%8F%91%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98/"/>
+      <url>/2018/12/06/%E7%94%B1Detected-problems-with-API-compatibility%E5%BC%95%E5%8F%91%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h2 id="问题重现"><a href="#问题重现" class="headerlink" title="问题重现"></a>问题重现</h2><p>由于将安卓版本升级到了9.0，每次调试都会弹出Detected problems with API compatibility(visit g.co/dev/appcompat for more info)，如下图所示：</p><p><img src="https://img2018.cnblogs.com/blog/1171252/201812/1171252-20181206100550215-1741372076.jpg" alt="img"></p><p>经查百度得知，原来是调用了安卓隐藏的API，才会出现这个问题。</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>当时采取了官方的建议，在如下位置加入targetSDKversion，版本28，也就是Android 9.0，即：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;google&quot;</span>:&#123;</span><br><span class="line">  <span class="string">&quot;targetSdkVersion&quot;</span>:<span class="number">28</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>改成这个以后，打包APP，网络访问都没有，直接网络访问错误，也就是所有的请求都无法正常使用。</p><p>其实这个问题是勾选debug调试引起的，只要打包时不勾选debug模式，就不会出现这个问题。（应该是debug模式中调用的隐藏的API）。</p><h2 id="引发的问题"><a href="#引发的问题" class="headerlink" title="引发的问题"></a>引发的问题</h2><p>下一次打包时把这个配置给去掉了，再次安装应用时就会安装失败，提示（权限版本无法降级（-26），小米的提示，其他机型也都是安装失败）：</p><p>问题所在就是上个版本调用的API是29的，而升级的版本调用的API是23的，所以才会安装失败。也就是SDK版本从低版本升级到高版本是可以的，而反过来就不行。</p><p>——————-以前的问题，现从博客园迁移过来</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
   
   
 </search>
