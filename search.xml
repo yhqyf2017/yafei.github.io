@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>The server selected protocol version TLS10 is not accepted by client preferences [TLS12]</title>
+      <link href="/2021/08/28/The%20server%20selected%20protocol%20version%20TLS10%20is%20not%20accepted%20by%20client%20preferences%20%5BTLS12%5D/"/>
+      <url>/2021/08/28/The%20server%20selected%20protocol%20version%20TLS10%20is%20not%20accepted%20by%20client%20preferences%20%5BTLS12%5D/</url>
+      
+        <content type="html"><![CDATA[<p>Java连接 Sqlserver发生了报错错误如下：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">The server selected protocol version TLS10 is not accepted by client preferences [TLS12] </span><br></pre></td></tr></table></figure><p>解决方法：</p><p>原因： </p><p>​        JDK1.8高版本 不推荐使用旧的 TLSV1.0 的协议，所以默认删除 TLS10 的支持</p><p>根据环境变量配置中jre的地址，在 jre\lib\security文件夹下，编辑java.security文件<br>在文件中找到 jdk.tls.disabledAlgorithms配置项，将TLSv1, TLSv1.1, 3DES_EDE_CBC删除即可。</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">after</span></span><br><span class="line">jdk.tls.disabledAlgorithms=SSLv3,RC4, DES, MD5withRSA, \</span><br><span class="line">    DH keySize &lt; 1024, EC keySize &lt; 224, anon, NULL, \</span><br><span class="line">    include jdk.disabled.namedCurves</span><br></pre></td></tr></table></figure><p>修改之前的如下：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">before</span> </span><br><span class="line">jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \</span><br><span class="line">    DH keySize &lt; 1024, EC keySize &lt; 224, 3DES_EDE_CBC, anon, NULL, \</span><br><span class="line">    include jdk.disabled.namedCurves</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Sql Server </tag>
+            
+            <tag> JDK </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Oracle11g使用数据泵导入/导出数据</title>
       <link href="/2021/08/13/Oracle%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E6%B3%B5%E5%AF%BC%E5%85%A5-%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/"/>
       <url>/2021/08/13/Oracle%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E6%B3%B5%E5%AF%BC%E5%85%A5-%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/</url>
