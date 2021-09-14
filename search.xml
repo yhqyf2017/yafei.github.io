@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>NCCloud简单表格分页</title>
+      <link href="/2021/09/14/NCCloud%E7%AE%80%E5%8D%95%E8%A1%A8%E6%A0%BC%E5%88%86%E9%A1%B5/"/>
+      <url>/2021/09/14/NCCloud%E7%AE%80%E5%8D%95%E8%A1%A8%E6%A0%BC%E5%88%86%E9%A1%B5/</url>
+      
+        <content type="html"><![CDATA[<p>NCCloud生成的主子表（列表页面）默认是没有开启分页的，需要在数据库中手动开启，代码不需要修改，修改完成之后重启即可。</p><p>需要修改的表：<code>PUB_AREA</code></p><p>需要修改的字段：<code>pagination</code></p><p>需要根据模板Id去查询是否分页：</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> PUB_AREA <span class="keyword">where</span> pk_area=<span class="string">&#x27;0001ZZZZfe6e1b8f6341&#x27;</span></span><br></pre></td></tr></table></figure><p>重点看<code>pagination</code> ，默认是没有开启分页的，需要改成true。</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> PUB_AREA <span class="keyword">set</span> pagination=<span class="string">&#x27;true&#x27;</span> <span class="keyword">where</span> pk_area=<span class="string">&#x27;0001ZZZZfe6e1b8f6341&#x27;</span></span><br></pre></td></tr></table></figure><p>修改完成之后重启服务即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> NCCloud </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NCCloud </tag>
+            
+            <tag> 前端高阶组件 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>The server selected protocol version TLS10 is not accepted by client preferences [TLS12]</title>
       <link href="/2021/08/28/The%20server%20selected%20protocol%20version%20TLS10%20is%20not%20accepted%20by%20client%20preferences%20%5BTLS12%5D/"/>
       <url>/2021/08/28/The%20server%20selected%20protocol%20version%20TLS10%20is%20not%20accepted%20by%20client%20preferences%20%5BTLS12%5D/</url>
