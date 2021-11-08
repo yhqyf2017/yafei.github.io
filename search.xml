@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>NCCloud开发-开发环境问题</title>
+      <link href="/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98/"/>
+      <url>/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h3 id="解决Studio编译闪退问题"><a href="#解决Studio编译闪退问题" class="headerlink" title="解决Studio编译闪退问题"></a>解决Studio编译闪退问题</h3><p>设置 -Xms1024m -Xmx1024m -XX:MaxNewSize=256m -XX:PermSize=768m -XX:MaxPermSize=768m</p><p>1)开发环境启动bat文件中</p><p>2)Preference-&gt;JAVA-&gt;InstalledJRE-&gt;Argument</p><p>3)Debug配置的参数中</p><p>4)清理workspace中metadata文件夹</p><p>-Xmx  Java Heap最大值,默认值为物理内存的1/4</p><p>-Xms  Java Heap初始值,Server端JVM最好将-Xms和-Xmx设为相同值</p><h3 id="Studio无法加载private端jar包问题"><a href="#Studio无法加载private端jar包问题" class="headerlink" title="Studio无法加载private端jar包问题"></a>Studio无法加载private端jar包问题</h3><p>修改MDE\plugins\com.yonyou.studio.ria.core_6.3.1.5.jar包中UAPPrivateLibFilter.txt文件，将内容调整为*.jar</p><h3 id="客开模块如何避免授权控制"><a href="#客开模块如何避免授权控制" class="headerlink" title="客开模块如何避免授权控制"></a>客开模块如何避免授权控制</h3><p>客开新建立的模块第三位编码只要是 K,L,H,J，就可以不受Licence限制，推荐使用 H</p><h3 id="Studio启动的中间件的端口号无法修改的问题"><a href="#Studio启动的中间件的端口号无法修改的问题" class="headerlink" title="Studio启动的中间件的端口号无法修改的问题"></a>Studio启动的中间件的端口号无法修改的问题</h3><p>中间件的配置文件prop.xml中单机服务器的servername必须是”server”时,在uapstudio中启动中间件时才会读取prop.xml文件中定义的中间件IP地址和端口;否则,就是默认的80</p><h3 id="中间件启动停留在Start-Servers-with-domain-configuration"><a href="#中间件启动停留在Start-Servers-with-domain-configuration" class="headerlink" title="中间件启动停留在Start Servers with domain configuration"></a>中间件启动停留在Start Servers with domain configuration</h3><p>需要修改ierp/bin/prop.xml中的地址和端口号，确保端口号不被占用</p><h3 id="65中开发的WebService，在Studio中启动中间件时，访问http-127-0-0-1-uapws-service-时无法打开接口列表的问题"><a href="#65中开发的WebService，在Studio中启动中间件时，访问http-127-0-0-1-uapws-service-时无法打开接口列表的问题" class="headerlink" title="65中开发的WebService，在Studio中启动中间件时，访问http://127.0.0.1/uapws/service 时无法打开接口列表的问题"></a>65中开发的WebService，在Studio中启动中间件时，访问<a href="http://127.0.0.1/uapws/service">http://127.0.0.1/uapws/service</a> 时无法打开接口列表的问题</h3><p>配置启动参数-Duap.hotwebs=lfw,portal,fs,uapws</p><p>VM参数缺少 uapws</p><h3 id="中间件启动特别慢（20多分钟）"><a href="#中间件启动特别慢（20多分钟）" class="headerlink" title="中间件启动特别慢（20多分钟）"></a>中间件启动特别慢（20多分钟）</h3><p>确保已经删除掉数据源中无法连通的数据源</p><h3 id="调试态下NCHome65-开发单据修改后保存和删除时抛-“ESAPI异常问题”“"><a href="#调试态下NCHome65-开发单据修改后保存和删除时抛-“ESAPI异常问题”“" class="headerlink" title="调试态下NCHome65 开发单据修改后保存和删除时抛 “ESAPI异常问题”“"></a>调试态下NCHome65 开发单据修改后保存和删除时抛 “ESAPI异常问题”“</h3><p>ESAPI配置文件放在“${FIELD_NC_HOME}/ierp/bin/esapi”目录中，在eclipse中设置以下参数-Dorg.owasp.esapi.resources=${FIELD_NC_HOME}/ierp/bin/esapi，以保证运行环境能够找到ESAPI配置文</p><h3 id="NC各版本使用的JDK版本"><a href="#NC各版本使用的JDK版本" class="headerlink" title="NC各版本使用的JDK版本"></a>NC各版本使用的JDK版本</h3><p>NC56             jdk1.5</p><p>NC57             jdk1.6</p><p>NC6x             jdk1.7</p><p>NC65             jdk1.7</p><p>NCC1909      jdk1.8</p><h3 id="启动远程调试"><a href="#启动远程调试" class="headerlink" title="启动远程调试"></a>启动远程调试</h3><p>1）服务器端中间件中配置以下参数</p><p>表示监听当前服务器端口6155作为调试端口</p><p>-agentlib:jdwp=transport=dt_socket,suspend=n,server=y,address=192.168.0.106:6155</p><p>其中server=y表示监听其他debugclient端的请求</p><p>address=6155表示服务会在6155端口监听debug请求，在suspend=n时，若设置的端口与中间件端口一样，则远程的debug会连不过来</p><p>suspend表示是否在eclipse的调试客户端建立连接后才启动VM服务，若suspend=n，则表示中间件会正常启动，若为y或没有设置，则中间件启动时会暂停等待调试客户端连接</p><p>2）Eclipse中debug config增加Remote Java Application</p><p>连接方式：Socket Attach</p><p>配置IP和端口</p><h3 id="拷贝的Linux系统的NCHome在Windows使用"><a href="#拷贝的Linux系统的NCHome在Windows使用" class="headerlink" title="拷贝的Linux系统的NCHome在Windows使用"></a>拷贝的Linux系统的NCHome在Windows使用</h3><p>Linux环境解压缩jarsh.jar</p><p>Windows环境解压缩jarbat.jar</p><p>同时还要替换ant目录为windows版本或者Linux版本</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> NCCloud </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NCCloud </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Deepin系统11代处理器分辨率修改</title>
       <link href="/2021/11/08/Deepin%E7%B3%BB%E7%BB%9F11%E4%BB%A3%E5%A4%84%E7%90%86%E5%99%A8%E5%88%86%E8%BE%A8%E7%8E%87%E4%BF%AE%E6%94%B9/"/>
       <url>/2021/11/08/Deepin%E7%B3%BB%E7%BB%9F11%E4%BB%A3%E5%A4%84%E7%90%86%E5%99%A8%E5%88%86%E8%BE%A8%E7%8E%87%E4%BF%AE%E6%94%B9/</url>
