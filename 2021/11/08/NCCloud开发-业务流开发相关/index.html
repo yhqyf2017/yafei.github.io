@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NCCloud开发-业务流开发相关 | 锦瑟流年</title><meta name="keywords" content="NCCloud"><meta name="author" content="流年"><meta name="copyright" content="流年"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="摘录自PfUtilClient类，具体上下文可参考该类 前台根据单据类型编码获取节点编号String funNode &#x3D; PfUIDataCache.getBillType(new BillTypeCacheKey().buildBilltype(context.getSrcBillType()).buildPkGroup(context.getPk_group())).getNodecode()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NCCloud开发-业务流开发相关">
+<meta property="og:url" content="http://www.yafeiz.com/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E4%B8%9A%E5%8A%A1%E6%B5%81%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="锦瑟流年">
+<meta property="og:description" content="摘录自PfUtilClient类，具体上下文可参考该类 前台根据单据类型编码获取节点编号String funNode &#x3D; PfUIDataCache.getBillType(new BillTypeCacheKey().buildBilltype(context.getSrcBillType()).buildPkGroup(context.getPk_group())).getNodecode()">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.yafeiz.com/null">
+<meta property="article:published_time" content="2021-11-08T11:51:44.000Z">
+<meta property="article:modified_time" content="2021-11-08T11:54:17.560Z">
+<meta property="article:author" content="流年">
+<meta property="article:tag" content="NCCloud">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.yafeiz.com/null"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.yafeiz.com/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E4%B8%9A%E5%8A%A1%E6%B5%81%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="CMxvMS0ZaW8zrbI2J4cvLA_L25VR_C5D7QptYsiZgDM"/><meta name="msvalidate.01" content="FBBBB6F1B87A1658DE454375FA55E484"/><meta name="baidu-site-verification" content="code-5pNSXdnIWU"/><meta name="360-site-verification" content="c0daed960561c54451de189a72220a7e"/><meta name="yandex-verification" content="b6904a4647bf5306"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4c15d038e8a16434aa82646f62061b34";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-11-08 19:54:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'true'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/index.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">锦瑟流年</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">NCCloud开发-业务流开发相关</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-08T11:51:44.000Z" title="发表于 2021-11-08 19:51:44">2021-11-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-08T11:54:17.560Z" title="更新于 2021-11-08 19:54:17">2021-11-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/NCCloud/">NCCloud</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>摘录自PfUtilClient类，具体上下文可参考该类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">前台根据单据类型编码获取节点编号</span><br><span class="line">String funNode = PfUIDataCache.getBillType(<span class="keyword">new</span> BillTypeCacheKey().buildBilltype(context.getSrcBillType()).buildPkGroup(context.getPk_group())).getNodecode();</span><br><span class="line">IPfExchangeService exchangeService=NCLocator.getInstance().lookup(IPfExchangeService.class);</span><br><span class="line"><span class="comment">//根据来源单据类型，目的单据类型获取最合适的VO转换规则</span></span><br><span class="line">ExchangeVO changeVO=exchangeService.queryMostSuitableExchangeVO(context.getSrcBillType(),context.getCurrBilltype(), <span class="keyword">null</span>, PfUtilUITools.getLoginGroup(), <span class="keyword">null</span>);</span><br><span class="line"><span class="keyword">if</span> (changeVO != <span class="keyword">null</span>) &#123;</span><br><span class="line">                src_qrytemplate = changeVO.getSrc_qrytemplate();<span class="comment">//获取来源单据的查询模板</span></span><br><span class="line">                src_qrytemplate = src_qrytemplate == <span class="keyword">null</span> ? <span class="keyword">null</span> : src_qrytemplate.trim();</span><br><span class="line">                src_billui = changeVO.getSrc_billui();<span class="comment">//获取来源单据的界面UI</span></span><br><span class="line">                src_nodekey = changeVO.getSrc_nodekey();<span class="comment">//获取来源单据的节点编号</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a.获取来源单据的查询对话框，即为m_condition赋值</span></span><br><span class="line">IBillReferQuery qcDLG = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (StringUtil.isEmptyWithTrim(src_qrytemplate)) &#123;</span><br><span class="line">    Logger.debug(<span class="string">&quot;使用来源单据类型对应节点使用的查询模板对话框&quot;</span>);</span><br><span class="line">    src_qrytemplate = PfUtilUITools.getTemplateId(ITemplateStyle.queryTemplate, context.getPk_group(),</span><br><span class="line">            funNode, context.getUserId(), src_nodekey);</span><br><span class="line">    qcDLG = setConditionClient(src_qrytemplate, context.getParent(), context.getUserId(), funNode, context.getPk_group());</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (src_qrytemplate.startsWith(<span class="string">&quot;&lt;&quot;</span>)) &#123;</span><br><span class="line">    Logger.debug(<span class="string">&quot;使用产品组定制的来源单据查询对话框&quot;</span>);</span><br><span class="line">    src_qrytemplate = src_qrytemplate.substring(<span class="number">1</span>, src_qrytemplate.length() - <span class="number">1</span>);</span><br><span class="line">    qcDLG = loadUserQuery(context.getParent(), src_qrytemplate, context.getPk_group(), context.getUserId(), funNode,</span><br><span class="line">            context.getCurrBilltype(), context.getSrcBillType(), src_nodekey, context.getUserObj());</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    Logger.debug(<span class="string">&quot;使用注册的查询模板的查询对话框&quot;</span>);</span><br><span class="line">    qcDLG = setConditionClient(src_qrytemplate, context.getParent(), context.getUserId(), funNode, context.getPk_group());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//给查询对话框设置业务类型，asked by scm-puqh</span></span><br><span class="line"><span class="keyword">if</span>(context.getBusiTypes()!= <span class="keyword">null</span> &amp;&amp; qcDLG <span class="keyword">instanceof</span> IBillReferQueryWithBusitype)</span><br><span class="line">    ((IBillReferQueryWithBusitype)qcDLG).setBusitypes(context.getBusiTypes());</span><br><span class="line"><span class="comment">//给查询对话框设置交易类型，用于过滤上游单据，asked by scm-puqh</span></span><br><span class="line"><span class="keyword">if</span>(context.getTransTypes()!= <span class="keyword">null</span> &amp;&amp; qcDLG <span class="keyword">instanceof</span> IBillReferQueryWithTranstype)</span><br><span class="line">    ((IBillReferQueryWithTranstype)qcDLG).setTranstypes(context.getTransTypes());</span><br><span class="line"><span class="keyword">if</span> (context.getSrcBillId() == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">//b.显示来源单据的查询对话框</span></span><br><span class="line">    <span class="keyword">if</span> (qcDLG.showModal() == UIDialog.ID_OK) &#123;</span><br><span class="line">        <span class="comment">// c.显示来源单据，并进行选择</span></span><br><span class="line">        refBillSource(context.getPk_group(), funNode, context.getUserId(), context.getCurrBilltype(), context.getParent(), context.getUserObj(),</span><br><span class="line">                context.getSrcBillType(), src_qrytemplate, src_billui, src_nodekey, <span class="keyword">null</span>, qcDLG);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        m_isOk = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//b&#x27;.直接显示来源单据</span></span><br><span class="line">    refBillSource(context.getPk_group(), funNode, context.getUserId(), context.getCurrBilltype(), context.getParent(), context.getUserObj(), context.getSrcBillType(),</span><br><span class="line">            src_qrytemplate, src_billui, src_nodekey, context.getSrcBillId(), qcDLG);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>生成下游单据后，回写上游单据累计执行量，参考</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(BillVO[] vos)</span> </span>&#123;</span><br><span class="line">        ItemKeyMapping mapping = <span class="keyword">new</span> ItemKeyMapping();</span><br><span class="line">        mapping.setNnumKey(<span class="string">&quot;nnum&quot;</span>);<span class="comment">//设置要回写的数量-调拨订单数量</span></span><br><span class="line">        BillRewriter tool = <span class="keyword">new</span> BillRewriter(mapping);</span><br><span class="line">        tool.addSRCHeadClazz(POBillType.PrayBill.getCode(),</span><br><span class="line">                PraybillHeaderVO.class);</span><br><span class="line">        tool.addSRCItemClazz(POBillType.PrayBill.getCode(),</span><br><span class="line">                PraybillItemVO.class);</span><br><span class="line">        <span class="comment">//Map&lt;String, List&lt;RewritePara&gt;&gt; paraIndex = tool.splitForDelete(vos);//根据要删除的单据实体，组织回写参数</span></span><br><span class="line">        <span class="comment">//Map&lt;String, List&lt;RewritePara&gt;&gt; paraIndex = tool.splitForInsert(vos);//根据要新增的单据实体，组织回写参数</span></span><br><span class="line">        Map&lt;String, List&lt;RewritePara&gt;&gt; paraIndex = tool.splitForUpdate(newBills,</span><br><span class="line">                        originBills);<span class="comment">//根据要修改的单据实体，组织回写参数</span></span><br><span class="line">        List&lt;RewritePara&gt; paraList = (List&lt;RewritePara&gt;) paraIndex</span><br><span class="line">                .get(POBillType.PrayBill.getCode());</span><br><span class="line">        <span class="keyword">if</span> ((paraList != <span class="keyword">null</span>) &amp;&amp; (paraList.size() &gt; <span class="number">0</span>)) &#123;</span><br><span class="line">            M20For5XService service = <span class="keyword">new</span> M20For5XService();</span><br><span class="line">            service.rewriteTransNum(paraList);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">流年</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.yafeiz.com/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E4%B8%9A%E5%8A%A1%E6%B5%81%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/">http://www.yafeiz.com/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E4%B8%9A%E5%8A%A1%E6%B5%81%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.yafeiz.com" target="_blank">锦瑟流年</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NCCloud/">NCCloud</a></div><div class="post_share"><div class="social-share" data-image="/null" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E5%B8%B8%E7%94%A8%E5%B8%B8%E9%87%8F/"><img class="prev-cover" src="/img/index.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">NCCloud开发-常用常量</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E5%BC%80%E5%8F%91%E5%86%85%E5%AE%B9%E5%AF%BC%E5%87%BA%E9%83%A8%E7%BD%B2%E7%9B%B8%E5%85%B3/"><img class="next-cover" src="/img/index.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">NCCloud开发-开发内容导出部署相关</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/09/14/NCCloud简单表格分页/" title="NCCloud简单表格分页"><img class="cover" src="/img/index.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-14</div><div class="title">NCCloud简单表格分页</div></div></a></div><div><a href="/2021/11/08/NCCloud开发-开发环境问题/" title="NCCloud开发-开发环境问题"><img class="cover" src="/img/index.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-08</div><div class="title">NCCloud开发-开发环境问题</div></div></a></div><div><a href="/2021/11/08/NCCloud开发-常用类及API方法/" title="NCCloud开发-常用类及API方法"><img class="cover" src="/img/index.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-08</div><div class="title">NCCloud开发-常用类及API方法</div></div></a></div><div><a href="/2021/11/08/NCCloud开发-UI端界面操作/" title="NCCloud开发-UI端界面操作"><img class="cover" src="/img/index.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-08</div><div class="title">NCCloud开发-UI端界面操作</div></div></a></div><div><a href="/2021/11/08/NCCloud开发-Servlet服务接口/" title="NCCloud开发-Servlet服务接口"><img class="cover" src="/img/index.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-08</div><div class="title">NCCloud开发-Servlet服务接口</div></div></a></div><div><a href="/2021/11/08/NCCloud开发-UPM文件说明/" title="NCCloud开发-UPM文件说明"><img class="cover" src="/img/index.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-08</div><div class="title">NCCloud开发-UPM文件说明</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">流年</div><div class="author-info__description">锦瑟流年</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn"><i></i><span></span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="/1361220256@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E6%8E%A8%E5%BC%8F%E7%94%9F%E6%88%90%E6%9C%AA%E4%BF%9D%E5%AD%98%E5%8D%95%E6%8D%AE/" title="NCCloud开发-推式生成未保存单据">NCCloud开发-推式生成未保存单据</a><time datetime="2021-11-08T11:57:16.000Z" title="发表于 2021-11-08 19:57:16">2021-11-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E8%81%94%E6%9F%A5%E7%9B%B8%E5%85%B3/" title="NCCloud开发-联查相关">NCCloud开发-联查相关</a><time datetime="2021-11-08T11:57:05.000Z" title="发表于 2021-11-08 19:57:05">2021-11-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-VO%E5%B8%B8%E7%94%A8%E5%A4%84%E7%90%86%E7%B1%BB/" title="NCCloud开发-VO常用处理类">NCCloud开发-VO常用处理类</a><time datetime="2021-11-08T11:54:38.000Z" title="发表于 2021-11-08 19:54:38">2021-11-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-Servlet%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3/" title="NCCloud开发-Servlet服务接口">NCCloud开发-Servlet服务接口</a><time datetime="2021-11-08T11:53:27.000Z" title="发表于 2021-11-08 19:53:27">2021-11-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/08/NCCloud%E5%BC%80%E5%8F%91-%E5%B8%B8%E7%94%A8%E5%B8%B8%E9%87%8F/" title="NCCloud开发-常用常量">NCCloud开发-常用常量</a><time datetime="2021-11-08T11:52:45.000Z" title="发表于 2021-11-08 19:52:45">2021-11-08</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/index.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 流年</div><div class="icp"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery"><img class="icp-icon" src="/img/icp.png" alt="ICP"/><span>豫ICP备20002785号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script></div></body></html>
