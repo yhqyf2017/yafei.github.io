@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Deepin系统11代处理器分辨率修改</title>
+      <link href="/2021/11/08/Deepin%E7%B3%BB%E7%BB%9F11%E4%BB%A3%E5%A4%84%E7%90%86%E5%99%A8%E5%88%86%E8%BE%A8%E7%8E%87%E4%BF%AE%E6%94%B9/"/>
+      <url>/2021/11/08/Deepin%E7%B3%BB%E7%BB%9F11%E4%BB%A3%E5%A4%84%E7%90%86%E5%99%A8%E5%88%86%E8%BE%A8%E7%8E%87%E4%BF%AE%E6%94%B9/</url>
+      
+        <content type="html"><![CDATA[<h3 id="新建文件i915-conf"><a href="#新建文件i915-conf" class="headerlink" title="新建文件i915.conf"></a>新建文件i915.conf</h3><p>在<code> /etc/modprobe.d/</code>下新建文件i915.conf</p><p>文件内容如下 ：</p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">options i915 force_probe=4c8a</span><br></pre></td></tr></table></figure><p>保存后，运行：</p><p>sudo update-initramfs -u -k all</p><p>然后重启即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> deepin </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>NCCloud简单表格分页</title>
       <link href="/2021/09/14/NCCloud%E7%AE%80%E5%8D%95%E8%A1%A8%E6%A0%BC%E5%88%86%E9%A1%B5/"/>
       <url>/2021/09/14/NCCloud%E7%AE%80%E5%8D%95%E8%A1%A8%E6%A0%BC%E5%88%86%E9%A1%B5/</url>
